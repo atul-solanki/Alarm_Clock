@@ -1,5 +1,5 @@
-import "./styles.css";
-import "./responsive.css";
+// import "./styles.css";
+// import "./responsive.css";
 
 document.getElementById("body").innerHTML = `
 <div id="app">
