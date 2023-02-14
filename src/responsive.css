@@ -1,45 +1,54 @@
+/* some Styles for tab and mobiles */
 @media screen and (max-width: 1080px) {
+
+  /* Clock Heading styles*/
   #clock-container h1 {
     font-size: 8vw;
   }
 
+  /* clock button styles */
   #clock-container button {
     font-size: 3vw !important;
   }
 
+  /* clock styles */
   #current-time {
     font-size: 5vw !important;
     width: 50vw;
     height: 50vw;
     border-radius: 50%;
     color: transparent;
-    /* text-shadow: 0px 0px 4px rgb(0 118 132), 0 0 rgb(0 0 0 / 55%); */
   }
 
+  /* Input styles */
   #set-alarm-field input {
     width: 12vw;
     font-size: 5vw;
     margin: 0.5rem 0;
   }
 
+  /* timeZone */
   #zone {
     padding: 1vw 0.3vw 1vw;
     font-size: 5vw;
   }
 
+  /* list container styles */
   #alist-conatiner {
     font-size: 4vw;
-    /* margin-top: 4rem; */
   }
 
+  /* Alarm List Heading */
   h3 {
     font-size: 5vw;
   }
 
+  /* list */
   li {
     max-width: 70%;
   }
 
+  /* delete button */
   li button {
     font-size: 3vw !important;
   }

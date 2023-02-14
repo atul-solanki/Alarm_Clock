@@ -1,3 +1,4 @@
+/* Whole Document styles */
 * {
   color: black;
   padding: 0;
@@ -6,6 +7,8 @@
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
+
+/* set Styles for app */
 #app {
   background-image: url("./bg-img.jpg");
   background-size: cover;
@@ -16,21 +19,32 @@
   height: 100vh;
 }
 
+/* stlye for section tag */
 section {
   height: 100%;
+  position: relative;
+  overflow-y: scroll !important;
 }
 
+/* Styes for section tag scrollbar */
+section::-webkit-scrollbar {
+  appearance: none;
+}
+
+/* Styles for clock containter part */
 #clock-container {
   padding: 1rem;
   height: 50%;
 }
 
+/* Styles for Clock container heading */
 #clock-container h1 {
   color: transparent;
   text-shadow: 0px 0px 7px rgb(218 214 207), 0 0 rgb(0 0 0 / 20%);
   font-weight: 900;
 }
 
+/* Styles for current time box */
 #current-time {
   background-image: url("./clock-inner-bg-img.avif");
   background-size: cover;
@@ -50,28 +64,33 @@ section {
   align-items: center;
 }
 
+/* Styles for clock time box */
 #time {
   background: white;
   padding: 0 0.25rem;
   border-radius: 4px;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
 }
+
+/* Styles for Input */
 #set-alarm-field input {
   width: 50px;
   padding-left: 0.4rem;
   margin: 1rem 0;
 }
 
+/* Styles for A(alarm) list Container Box*/
 #alist-conatiner {
-  /* border: 2px solid aquamarine; */
   overflow-y: scroll;
   height: 41%;
 }
 
+/* Styes for A(alarm) List Container Box scrollbar */
 #alist-conatiner::-webkit-scrollbar {
   appearance: none;
 }
 
+/* Styles for heading ofA(alarm) list */
 h3 {
   padding-left: 2rem;
   font-weight: 600 !important;
@@ -79,34 +98,29 @@ h3 {
   height: 5%;
 }
 
+/* Styles for Alarm list  */
 li {
   background-color: #dddcd7 !important;
   border: 2px solid rgb(0 0 0 / 13%) !important;
-  max-width: 600px;
+  max-width: 70%;
   padding: 0.5rem !important;
   border-radius: 4px !important;
 }
 
+/* Styles for input field */
 input:valid,
 textarea:valid {
   background-color: palegreen;
 }
 
+/* Styles for footer */
 footer {
   position: absolute;
   bottom: 0;
   height: 4%;
 }
 
-section {
-  position: relative;
-  overflow-y: scroll !important;
-}
-
-section::-webkit-scrollbar {
-  appearance: none;
-}
-
+/* Styles for hiding */
 .hide {
   display: none;
 }
