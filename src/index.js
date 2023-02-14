@@ -45,7 +45,7 @@ document.getElementById("body").innerHTML = `
 
 // set audio for alarm
 let audio = new Audio(
-  "https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3"
+  "./src/audio.mp3"
 );
 audio.loop = true;
 
@@ -142,6 +142,7 @@ displayAlarmList.addEventListener("click", handleAlarmList);
 function stopAlarm() {
   audio.pause();
   audio.currentTime = 0;
+  alert("Alarm is Stop");
 }
 
 stopAlarmBtn.addEventListener("click", stopAlarm);
