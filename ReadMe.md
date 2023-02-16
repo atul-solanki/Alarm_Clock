@@ -17,6 +17,7 @@ The first part of the project contains the heading and a digital clock which giv
     -Alarm-List - an array
     -Alarm - ("time")
 - Functions (in code)
+    - showNotification
     - formSubmit
     - addAlarmToDom
     - renderAlarmList
