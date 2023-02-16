@@ -37,129 +37,40 @@ document.getElementById("body").innerHTML = `
 `;
 
 // ---------------------------------------End of HTML Structure Elements and tag----------------------------------------------------------------
-// set audio for alarm
-let audio = new Audio(
-  "./src/audio.mp3"
-);
-audio.loop = true;
-// -----------------------------------------End of set audio for alarm--------------------------------------------------------------------------
+
 
 // create some variable for target elelements
-
 let alarmList = []; // Stores all the alarams in array, when we created the Alarm.
 const showAlarmList = document.getElementById("list-group");
 const alarmForm = document.querySelector("form");
 const currentTime = document.getElementById("current-time");
 const stopAlarmBtn = document.getElementById("stop-alarm");
 const h3 = document.querySelector(`h3.container`);
+let audioPlay = false;
 // ---------------------------------End of part variable-------------------------------------------------------------------------------------------
 
-// function for input type="number" maxlength work properly
-document.querySelectorAll(`input[type="number"]`).forEach((input) => {
-  input.oninput = () => {
-    if (input.value.length > input.maxLength)
-      input.value = input.value.slice(0, input.maxLength);
-  };
-});
-// ---------------------------------End of part input type="number" maxlength work properly----------------------------------------------------------
+
+// set audio for alarm
+let audio = new Audio(
+  "./src/audio.mp3"
+);
+audio.loop = true;
+
+// -----------------------------------------End of set audio for alarm--------------------------------------------------------------------------
 
 
-// function for Add(Show) Alarm in Document
-function addAlarmToDom(time) {
-  h3.classList.remove("hide");
-  const id = Date.now().toString();
-  showAlarmList.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center">
-<span id="${id}" >${time}</span>
-<button type="button" id="${id}" class="btn btn-outline-secondary dlt">Delete</button>
-</li>`;
+// show display msg
+function showNotifaction(msg) {
+  alert(msg);
 }
 
-
-// begin of Event Listener submit with arrow function for input handler
-alarmForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  var hrLength = alarmForm.a_hour.value.length;
-  var minLength = alarmForm.a_min.value.length;
-  var secLength = alarmForm.a_sec.value.length;
-  var aHr = alarmForm.a_hour.value;
-  aHr = hrLength === 2 ? aHr : aHr <= 9 ? "0" + aHr : aHr;
-  var aMin = alarmForm.a_min.value;
-  aMin = minLength === 2 ? aMin : aMin <= 9 ? "0" + aMin : aMin;
-  var aSec = alarmForm.a_sec.value;
-  aSec = secLength === 2 ? aSec : aSec <= 9 ? "0" + aSec : aSec;
-  var aZone = alarmForm.zone.value;
-  if (aZone === "zone") {
-    return;
-  }
-  const alarmTime = `${aHr} : ${aMin} : ${aSec} ${aZone}`;
-  console.log(alarmTime);  //it's for check gets the correct time and not.
-
-  //     add newAlarm to alarmList 
-  if (isNaN(alarmTime)) {
-    if (!alarmList.includes(alarmTime)) {
-      alarmList.push(alarmTime);
-      addAlarmToDom(alarmTime);
-      alarmForm.reset();
-      alert("created Successfully");
-    } else {
-      alert(`Alarm for ${alarmTime} already set.`);
-    }
-  }
-});
-// ---------------------------------------End of Event Listener submit with arrow function for input handler------------------------------------------------------------------
-
-// function render AlarmList when user call delete Alarm Function
-function renderAlarmList() {
-  h3.classList.add("hide");
-  showAlarmList.innerHTML = "";
-  for (let i = 0; i < alarmList.length; i++) {
-    addAlarmToDom(alarmList[i]);
-  }
-  alert("Delete successfully");
-}
-
-// function delete Alarm
-function deleteAlarm(value) {
-  let newAlarmList = alarmList.filter((time) => {
-    return time !== value;
-  });
-  console.log(newAlarmList);
-  alarmList = newAlarmList;
-  console.log(alarmList);
-  renderAlarmList();
-}
-
-// function Handle Alarm list on delete Button
-function handleAlarmList(e) {
-  const target = e.target;
-  console.log(target);
-  if (target.classList.contains("dlt")) {
-    const id = target.id;
-    const value = document.getElementById(`${id}`).innerText;
-    console.log(value);
-    deleteAlarm(value);
-    return;
-  }
-}
-
-// Click Event Listener on dlt button
-showAlarmList.addEventListener("click", handleAlarmList);
-
-// function stop Alarm button
-function stopAlarm() {
-  audio.pause();
-  audio.currentTime = 0;
-  alert("Alarm is Stop");
-}
-
-// Click event listener on Stop Alarm Button
-stopAlarmBtn.addEventListener("click", stopAlarm);
 
 // Plays the alarm audio at correct time
 function alarmRinging() {
   audio.play();
-  // alert(`Alarm is ringing `)
+  audioPlay = true;
 }
+
 
 // function update Time every second and matching Alaram Time
 let updateTime = () => {
@@ -184,6 +95,117 @@ let updateTime = () => {
     alarmRinging();
   }
 };
+// -----------------------End of update time function--------------------------------------------------------------------------------------------------------
+
+
+// function for input type="number" maxlength work properly
+document.querySelectorAll(`input[type="number"]`).forEach((input) => {
+  input.oninput = () => {
+    if (input.value.length > input.maxLength)
+      input.value = input.value.slice(0, input.maxLength);
+  };
+});
+// -----------------------End of part input type="number" maxlength work properly----------------------------------------------------------
+
+
+// function for Add(Show) Alarm in Document
+function addAlarmToDom(time) {
+  h3.classList.remove("hide");
+  const id = Date.now().toString();
+  showAlarmList.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center">
+<span id="${id}" >${time}</span>
+<button type="button" id="${id}" class="btn btn-outline-secondary dlt">Delete</button>
+</li>`;
+}
+
+
+// begining of part Event Listener to set a new alarm and add to array when form is submitted
+alarmForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  var hrLength = alarmForm.a_hour.value.length;
+  var minLength = alarmForm.a_min.value.length;
+  var secLength = alarmForm.a_sec.value.length;
+  var aHr = alarmForm.a_hour.value;
+  aHr = hrLength === 2 ? aHr : aHr <= 9 ? "0" + aHr : aHr;
+  var aMin = alarmForm.a_min.value;
+  aMin = minLength === 2 ? aMin : aMin <= 9 ? "0" + aMin : aMin;
+  var aSec = alarmForm.a_sec.value;
+  aSec = secLength === 2 ? aSec : aSec <= 9 ? "0" + aSec : aSec;
+  var aZone = alarmForm.zone.value;
+  if (aZone === "zone") {
+    return;
+  }
+  const alarmTime = `${aHr} : ${aMin} : ${aSec} ${aZone}`;
+  console.log(alarmTime);  //it's for check gets the correct time and not.
+
+
+  //     add newAlarm to alarmList 
+  if (isNaN(alarmTime)) {
+    if (!alarmList.includes(alarmTime)) {
+      alarmList.push(alarmTime);
+      addAlarmToDom(alarmTime);
+      alarmForm.reset();
+      showNotifaction("created Successfully");
+    } else {
+      showNotifaction(`Alarm for ${alarmTime} already set.`);
+    }
+  }
+});
+// ---------------------------------------End of Event Listener form submit ------------------------------------------------------------------
+
+
+// stop Alarm sound
+function stopAlarm() {
+  if (audioPlay) {
+    audio.pause();
+    audio.currentTime = 0;
+    showNotifaction("Alarm is Stop");
+    audioPlay = false;
+  } else {
+    return;
+  }
+}
+
+// Click event listener on Stop Alarm Button
+stopAlarmBtn.addEventListener("click", stopAlarm);
+
+
+//  render AlarmList when user call delete Alarm Function
+function renderAlarmList() {
+  h3.classList.add("hide");
+  showAlarmList.innerHTML = "";
+  for (let i = 0; i < alarmList.length; i++) {
+    addAlarmToDom(alarmList[i]);
+  }
+  showNotifaction("Delete successfully");
+}
+
+//  delete Alarm in alarm list and document
+function deleteAlarm(value) {
+  let newAlarmList = alarmList.filter((time) => {
+    return time !== value;
+  });
+  console.log(newAlarmList);
+  alarmList = newAlarmList;
+  console.log(alarmList);
+  renderAlarmList();
+}
+
+// Handle Alarm list on delete Button
+function handleAlarmList(e) {
+  const target = e.target;
+  console.log(target);
+  if (target.classList.contains("dlt")) {
+    const id = target.id;
+    const value = document.getElementById(`${id}`).innerText;
+    console.log(value);
+    deleteAlarm(value);
+    return;
+  }
+}
+
+// Click Event Listener on dlt button
+showAlarmList.addEventListener("click", handleAlarmList);
 
 // SetInterval on UpdateTime Function
 setInterval(updateTime, 1000);
