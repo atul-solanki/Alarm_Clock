@@ -60,7 +60,7 @@ audio.loop = true;
 
 
 // show display msg
-function showNotifaction(msg) {
+function showNotification(msg) {
   alert(msg);
 }
 
@@ -145,9 +145,9 @@ alarmForm.addEventListener("submit", (e) => {
       alarmList.push(alarmTime);
       addAlarmToDom(alarmTime);
       alarmForm.reset();
-      showNotifaction("created Successfully");
+      showNotification("created Successfully");
     } else {
-      showNotifaction(`Alarm for ${alarmTime} already set.`);
+      showNotification(`Alarm for ${alarmTime} already set.`);
     }
   }
 });
@@ -159,7 +159,7 @@ function stopAlarm() {
   if (audioPlay) {
     audio.pause();
     audio.currentTime = 0;
-    showNotifaction("Alarm is Stop");
+    showNotification("Alarm is Stop");
     audioPlay = false;
   } else {
     return;
@@ -177,7 +177,7 @@ function renderAlarmList() {
   for (let i = 0; i < alarmList.length; i++) {
     addAlarmToDom(alarmList[i]);
   }
-  showNotifaction("Delete successfully");
+  showNotification("Delete successfully");
 }
 
 //  delete Alarm in alarm list and document
