@@ -145,7 +145,7 @@ alarmForm.addEventListener("submit", (e) => {
       alarmList.push(alarmTime);
       addAlarmToDom(alarmTime);
       alarmForm.reset();
-      showNotification("created Successfully");
+      showNotification("Created is successfully");
     } else {
       showNotification(`Alarm for ${alarmTime} already set.`);
     }
@@ -159,7 +159,7 @@ function stopAlarm() {
   if (audioPlay) {
     audio.pause();
     audio.currentTime = 0;
-    showNotification("Alarm is Stop");
+    showNotification("Alarm  is stopped");
     audioPlay = false;
   } else {
     return;
@@ -177,7 +177,7 @@ function renderAlarmList() {
   for (let i = 0; i < alarmList.length; i++) {
     addAlarmToDom(alarmList[i]);
   }
-  showNotification("Delete successfully");
+  showNotification("Deleted successfully");
 }
 
 //  delete Alarm in alarm list and document
