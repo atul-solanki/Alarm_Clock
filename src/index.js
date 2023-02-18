@@ -81,10 +81,8 @@ let updateTime = () => {
       : time.getHours() === 0
         ? "12"
         : time.getHours();
-  var minutes =
-    time.getMinutes() > 9 ? time.getMinutes() : "0" + time.getMinutes();
-  var seconds =
-    time.getSeconds() > 9 ? time.getSeconds() : "0" + time.getSeconds();
+  var minutes = time.getMinutes() > 9 ? time.getMinutes() : "0" + time.getMinutes();
+  var seconds = time.getSeconds() > 9 ? time.getSeconds() : "0" + time.getSeconds();
   var zone = time.getHours() >= 12 ? "PM" : "AM";
   hours = hours < 10 ? "0" + hours : "" + hours;
   const tym = `${hours} : ${minutes} : ${seconds} ${zone}`;
@@ -159,7 +157,7 @@ function stopAlarm() {
   if (audioPlay) {
     audio.pause();
     audio.currentTime = 0;
-    showNotification("Alarm is Stop");
+    showNotification("Alarm is Stopped");
     audioPlay = false;
   } else {
     return;
