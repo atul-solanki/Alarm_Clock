@@ -39,7 +39,7 @@ document.getElementById("body").innerHTML = `
 // ---------------------------------------End of HTML Structure Elements and tag----------------------------------------------------------------
 
 
-// create some variable for target elelements
+// create some variable to modify the DOM
 let alarmList = []; // Stores all the alarams in array, when we created the Alarm.
 const showAlarmList = document.getElementById("list-group");
 const alarmForm = document.querySelector("form");
@@ -51,9 +51,7 @@ let audioPlay = false;
 
 
 // set audio for alarm
-let audio = new Audio(
-  "./src/audio.mp3"
-);
+let audio = new Audio("./src/audio.mp3");
 audio.loop = true;
 
 // -----------------------------------------End of set audio for alarm--------------------------------------------------------------------------
