@@ -8,11 +8,11 @@ The first part of the project contains the heading and a digital clock which giv
 - Thinking about the UI
 - Functionality
     - Display time (hr : min : sec AM/PM)
-    - Add a Alarm
-    - Display a Alarm list
-    - Delete a Alarm
-    - Play a Alarm
-    - Stop Alarm
+    - Add an Alarm
+    - Display an Alarm list
+    - Delete an Alarm
+    - Play an Alarm
+    - Stop an Alarm
 - Data
     -Alarm-List - an array
     -Alarm - ("time")
