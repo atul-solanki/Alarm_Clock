@@ -12,23 +12,23 @@ document.getElementById("body").innerHTML = `
     <input type="number" name="a_min" id="a_min" placeholder="min" maxlength="2" max="59" min="00" required>
     <input type="number" name="a_sec" id="a_sec" placeholder="sec" maxlength="2" max="59" min="00" required>
     <select id="zone"  class="" required>
-        <option value="zone" selected disabled hidden>zone</option>
+        <option value="Meridiem" selected disabled hidden>Meridiem</option>
         <option value="AM">AM</option>
         <option value="PM">PM</option>
     </select>
 </div>
 <div class="controls">
-    <button type="submit" class="set-alarm btn btn-primary">Set Alarm</button>
-    <button type="reset" id="stop-alarm" class="clear-alarm btn btn-primary">Stop Alarm</button>
+    <button type="submit" class="set-alarm btn btn-primary"> Set Alarm</button>
+    <button type="reset" id="stop-alarm" class="clear-alarm btn btn-primary">Stop Ringing</button>
 </div>
 </form>
 </div>
 <h3 class="container hide">Alarms</h3>
 
-    <div id="alist-conatiner" class="container">
+   <div id="alist-conatiner" class="container ">
       <ul id="list-group">
       </ul>
-    </div>
+    </div> 
     <footer class="container-fluid text-bg-secondary text-center">
     &copy; Copyright 2023 Created by ATUL SOLANKI
     </footer>
@@ -39,22 +39,21 @@ document.getElementById("body").innerHTML = `
 // ---------------------------------------End of HTML Structure Elements and tag----------------------------------------------------------------
 
 
-// create some variable to modify the DOM
+// Alarm list and set audio variables for alarm
 let alarmList = []; // Stores all the alarams in array, when we created the Alarm.
+let audioSound = new Audio('static/audio/audio.mp3');
+let audioDelete = new Audio('static/audio/delete.mp3');
+let audioSet = new Audio('static/audio/set.mp3');
+let audioAlert = new Audio('static/audio/alert.mp3')
+let audioPlay = false;
+
+
+// set some variable to modify the DOM
+const currentTime = document.getElementById("current-time");  // current time
 const showAlarmList = document.getElementById("list-group");
 const alarmForm = document.querySelector("form");
-const currentTime = document.getElementById("current-time");
 const stopAlarmBtn = document.getElementById("stop-alarm");
-const h3 = document.querySelector(`h3.container`);
-let audioPlay = false;
-// ---------------------------------End of part variable-------------------------------------------------------------------------------------------
-
-
-// set audio for alarm
-let audio = new Audio("./src/audio.mp3");
-audio.loop = true;
-
-// -----------------------------------------End of set audio for alarm--------------------------------------------------------------------------
+const headingAlarmList = document.querySelector(`h3.container`);
 
 
 // show display msg
@@ -65,7 +64,8 @@ function showNotification(msg) {
 
 // Plays the alarm audio at correct time
 function alarmRinging() {
-  audio.play();
+  audioSound.play();
+  audioSound.loop = true;
   audioPlay = true;
 }
 
@@ -74,16 +74,14 @@ function alarmRinging() {
 let updateTime = () => {
   const time = new Date();
   var hours =
-    time.getHours() > 12
-      ? time.getHours() - 12
-      : time.getHours() === 0
-        ? "12"
+    time.getHours() > 12 ? time.getHours() - 12
+      : time.getHours() === 0 ? "12"
         : time.getHours();
   var minutes = time.getMinutes() > 9 ? time.getMinutes() : "0" + time.getMinutes();
   var seconds = time.getSeconds() > 9 ? time.getSeconds() : "0" + time.getSeconds();
-  var zone = time.getHours() >= 12 ? "PM" : "AM";
+  var Meridiem = time.getHours() >= 12 ? "PM" : "AM";
   hours = hours < 10 ? "0" + hours : "" + hours;
-  const tym = `${hours} : ${minutes} : ${seconds} ${zone}`;
+  const tym = `${hours} : ${minutes} : ${seconds} ${Meridiem}`;
   currentTime.innerHTML = ` Current Time<br><span id="time">${tym}</span>`;
   // console.log(tym);
   if (alarmList.includes(tym)) {
@@ -91,7 +89,7 @@ let updateTime = () => {
     alarmRinging();
   }
 };
-// -----------------------End of update time function--------------------------------------------------------------------------------------------------------
+
 
 
 // function for input type="number" maxlength work properly
@@ -101,16 +99,15 @@ document.querySelectorAll(`input[type="number"]`).forEach((input) => {
       input.value = input.value.slice(0, input.maxLength);
   };
 });
-// -----------------------End of part input type="number" maxlength work properly----------------------------------------------------------
 
 
 // function for Add(Show) Alarm in Document
 function addAlarmToDom(time) {
-  h3.classList.remove("hide");
+  headingAlarmList.classList.remove("hide");
   const id = Date.now().toString();
   showAlarmList.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center">
-<span id="${id}" >${time}</span>
-<button type="button" id="${id}" class="btn btn-outline-secondary dlt">Delete</button>
+<span id="${id}" style="font-weight: bold;" ><i class="bi bi-alarm"></i>${time}</span>
+<button type="button" id="${id}" class="btn btn-outline-danger dlt"></button>
 </li>`;
 }
 
@@ -128,33 +125,36 @@ alarmForm.addEventListener("submit", (e) => {
   var aSec = alarmForm.a_sec.value;
   aSec = secLength === 2 ? aSec : aSec <= 9 ? "0" + aSec : aSec;
   var aZone = alarmForm.zone.value;
-  if (aZone === "zone") {
+  if (aZone === "Meridiem") {
+    audioAlert.play();
+    showNotification("select time Meridiem");
     return;
   }
   const alarmTime = `${aHr} : ${aMin} : ${aSec} ${aZone}`;
   console.log(alarmTime);  //it's for check gets the correct time and not.
-
-
-  //     add newAlarm to alarmList 
+ 
+  // set newAlarm to alarmList 
   if (isNaN(alarmTime)) {
     if (!alarmList.includes(alarmTime)) {
       alarmList.push(alarmTime);
       addAlarmToDom(alarmTime);
       alarmForm.reset();
-      showNotification("created Successfully");
+      setTimeout(() => showNotification("created Successfully"), 500)
+      audioSet.play();
+
     } else {
-      showNotification(`Alarm for ${alarmTime} already set.`);
+      audioAlert.play();
+      setTimeout(() => showNotification(`Alarm for ${alarmTime} already set.`), 500);
     }
   }
 });
-// ---------------------------------------End of Event Listener form submit ------------------------------------------------------------------
 
 
-// stop Alarm sound
+// stop Alarm audio 
 function stopAlarm() {
   if (audioPlay) {
-    audio.pause();
-    audio.currentTime = 0;
+    audioSound.pause();
+    audioSound.currentTime = 0;
     showNotification("Alarm is Stopped");
     audioPlay = false;
   } else {
@@ -168,12 +168,13 @@ stopAlarmBtn.addEventListener("click", stopAlarm);
 
 //  render AlarmList when user call delete Alarm Function
 function renderAlarmList() {
-  h3.classList.add("hide");
+  headingAlarmList.classList.add("hide");
   showAlarmList.innerHTML = "";
   for (let i = 0; i < alarmList.length; i++) {
     addAlarmToDom(alarmList[i]);
   }
-  showNotification("Delete successfully");
+  setTimeout(() => showNotification("Delete successfully"), 500)
+  audioDelete.play();
 }
 
 //  delete Alarm in alarm list and document
