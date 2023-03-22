@@ -1,7 +1,11 @@
 # Alarm-Clock App
 The project contains a Digital Alarm Clock here you can set as many alarms as you want. 
+<<<<<<< HEAD
 The first part of the project contains the heading and a digital clock which give the accurate time in seconds, where we can set an alarm also and stop the alarm. In the second part all the new alarms being set will be showing to a list on screen and will the played at the right time. Every new alarm being set a delete button will be given. When on clicking that button you will be able to delete to alarm and remove it's from the webpage.
 No Javascript library is used.
+=======
+The first part of the project contains the heading and a digital clock which give the accurate time in seconds, where we can set an alarm also and stop the alarm. In the second part all the new alarms being set will be showing to a list on webpage and will the played at the right time. Every new alarm being set a delete button will be given. When on clicking that button you will be able to delete to alarm and remove it's from the webpage.
+>>>>>>> 1a2df3d50abbde6c2907ec0b35012eeb9bae8a58
 
 
 ### General steps to follow when creating a project
@@ -9,15 +13,16 @@ No Javascript library is used.
 - Thinking about the UI
 - Functionality
     - Display time (hr : min : sec AM/PM)
-    - Add a Alarm
-    - Display a Alarm list
-    - Delete a Alarm
-    - Play a Alarm
-    - Stop Alarm
+    - Add an Alarm
+    - Display an Alarm list
+    - Delete an Alarm
+    - Play an Alarm
+    - Stop an Alarm
 - Data
     -Alarm-List - an array
     -Alarm - ("time")
 - Functions (in code)
+    - showNotification
     - formSubmit
     - addAlarmToDom
     - renderAlarmList
