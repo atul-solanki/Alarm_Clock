@@ -50,7 +50,7 @@ No Javascript library is used.
 - Scripting/Programming - Javascript
 - IDE - VSCode
 
-### Have a look at the project via this link :https://thakuratulsolanki.github.io/Alarm_Clock/
+### Have a look at the project via this link :https://atul-solanki.github.io/Alarm_Clock/
 
 ## Approach:
 When user give the input time and click set alarm. Then alarms being set will be added to an array and add to Alarm list. The array will be checked on every second, if it contains the current time it's match, then the alarm's sound will be played. 
