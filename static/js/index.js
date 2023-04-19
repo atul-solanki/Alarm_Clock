@@ -2,65 +2,60 @@
 
 document.getElementById("body").innerHTML = `
 <div id="app">
-<section>
-<div id="clock-container" class="container-fluid text-center">
-        <h1>DIGITAL CLOCK</h1>
-        <div id="current-time" class="container fs-2 fw-semibold"></div>
-        <form id="setAlarm-conatiner">
-<div id="set-alarm-field">
-    <input type="number" name="a_hour" id="a_hour" placeholder="hr" maxlength="2" max="12" min="01" required>
-    <input type="number" name="a_min" id="a_min" placeholder="min" maxlength="2" max="59" min="00" required>
-    <input type="number" name="a_sec" id="a_sec" placeholder="sec" maxlength="2" max="59" min="00" required>
-    <select id="zone"  class="" required>
-        <option value="Meridiem" selected disabled hidden>Meridiem</option>
-        <option value="AM">AM</option>
-        <option value="PM">PM</option>
-    </select>
-</div>
-<div class="controls">
-    <button type="submit" class="set-alarm btn btn-primary"> Set Alarm</button>
-    <button type="reset" id="stop-alarm" class="clear-alarm btn btn-primary">Stop Ringing</button>
-</div>
-</form>
-</div>
-<h3 class="container hide">Alarms</h3>
-
-   <div id="alist-conatiner" class="container ">
-      <ul id="list-group">
+  <section>
+    <div id="clock-container" class="container-fluid text-center">
+      <h1>DIGITAL CLOCK</h1>
+      <div id="current-time" class="container fs-2 fw-semibold"></div>
+      <form id="setAlarm-conatiner">
+        <div id="set-alarm-field">
+          <input type="number" name="alarm_hour" id="alarm_hour" placeholder="hr" maxlength="2" max="12" min="01" required>
+          <input type="number" name="alarm_min" id="alarm_min" placeholder="min" maxlength="2" max="59" min="00" required>
+          <input type="number" name="alarm_sec" id="alarm_sec" placeholder="sec" maxlength="2" max="59" min="00" required>
+          <select id="meridiem"  class="" required>
+            <option value="Meridiem" selected disabled hidden>Meridiem</option>
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+          </select>
+        </div>
+        <div class="controls">
+          <button type="submit" class="set-alarm btn btn-primary"> Set Alarm</button>
+          <button type="reset" id="stop-alarm" class="clear-alarm btn btn-primary">Stop Ringing</button>
+        </div>
+      </form>
+    </div>
+    <h3 class="container hide">Alarms</h3>
+    <div id="alist-conatiner" class="container ">
+      <ul id="alarm-list">
       </ul>
     </div> 
-    <footer class="container-fluid text-bg-secondary text-center">
-    &copy; Copyright 2023 Created by ATUL SOLANKI
+    <footer class="container-fluid text-bg-secondary text-center"> &copy; Copyright 2023 Created by ATUL SOLANKI
     </footer>
-    </section>
-    </div>
+  </section>
+</div>
 `;
 
 // ---------------------------------------End of HTML Structure Elements and tag----------------------------------------------------------------
 
 
 // Alarm list and set audio variables for alarm
-let alarmList = []; // Stores all the alarams in array, when we created the Alarm.
+let arrayAlarmList = []; // Stores all the alarams in array, when we created the Alarm.
 let audioSound = new Audio('static/audio/audio.mp3');
 let audioDelete = new Audio('static/audio/delete.mp3');
 let audioSet = new Audio('static/audio/set.mp3');
 let audioAlert = new Audio('static/audio/alert.mp3')
 let audioPlay = false;
 
-
 // set some variable to modify the DOM
 const currentTime = document.getElementById("current-time");  // current time
-const showAlarmList = document.getElementById("list-group");
+const alarmList = document.getElementById("alarm-list");
 const alarmForm = document.querySelector("form");
 const stopAlarmBtn = document.getElementById("stop-alarm");
 const headingAlarmList = document.querySelector(`h3.container`);
-
 
 // show display msg
 function showNotification(msg) {
   alert(msg);
 }
-
 
 // Plays the alarm audio at correct time
 function alarmRinging() {
@@ -69,28 +64,21 @@ function alarmRinging() {
   audioPlay = true;
 }
 
-
 // function update Time every second and matching Alaram Time
 let updateTime = () => {
   const time = new Date();
-  var hours =
-    time.getHours() > 12 ? time.getHours() - 12
-      : time.getHours() === 0 ? "12"
-        : time.getHours();
+  var hours = time.getHours() > 12 ? time.getHours() - 12 : time.getHours() === 0 ? "12" : time.getHours();
   var minutes = time.getMinutes() > 9 ? time.getMinutes() : "0" + time.getMinutes();
   var seconds = time.getSeconds() > 9 ? time.getSeconds() : "0" + time.getSeconds();
   var Meridiem = time.getHours() >= 12 ? "PM" : "AM";
   hours = hours < 10 ? "0" + hours : "" + hours;
   const tym = `${hours} : ${minutes} : ${seconds} ${Meridiem}`;
   currentTime.innerHTML = ` Current Time<br><span id="time">${tym}</span>`;
-  // console.log(tym);
-  if (alarmList.includes(tym)) {
+  if (arrayAlarmList.includes(tym)) {
     console.log(tym);
     alarmRinging();
   }
 };
-
-
 
 // function for input type="number" maxlength work properly
 document.querySelectorAll(`input[type="number"]`).forEach((input) => {
@@ -100,43 +88,43 @@ document.querySelectorAll(`input[type="number"]`).forEach((input) => {
   };
 });
 
-
 // function for Add(Show) Alarm in Document
 function addAlarmToDom(time) {
   headingAlarmList.classList.remove("hide");
   const id = Date.now().toString();
-  showAlarmList.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center">
-<span id="${id}" style="font-weight: bold;" ><i class="bi bi-alarm"></i>${time}</span>
-<button type="button" id="${id}" class="btn btn-outline-danger dlt"></button>
+  alarmList.innerHTML += 
+  `<li class="d-flex justify-content-between align-items-center">
+    <span id="${id}" >
+    <i class="bi bi-alarm"></i>${time}
+    </span>
+    <button type="button" id="${id}" class="btn btn-outline-danger dlt"></button>
 </li>`;
 }
-
 
 // begining of part Event Listener to set a new alarm and add to array when form is submitted
 alarmForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  var hrLength = alarmForm.a_hour.value.length;
-  var minLength = alarmForm.a_min.value.length;
-  var secLength = alarmForm.a_sec.value.length;
-  var aHr = alarmForm.a_hour.value;
-  aHr = hrLength === 2 ? aHr : aHr <= 9 ? "0" + aHr : aHr;
-  var aMin = alarmForm.a_min.value;
-  aMin = minLength === 2 ? aMin : aMin <= 9 ? "0" + aMin : aMin;
-  var aSec = alarmForm.a_sec.value;
-  aSec = secLength === 2 ? aSec : aSec <= 9 ? "0" + aSec : aSec;
-  var aZone = alarmForm.zone.value;
-  if (aZone === "Meridiem") {
+  var hrLength = alarmForm.alarm_hour.value.length;
+  var minLength = alarmForm.alarm_min.value.length;
+  var secLength = alarmForm.alarm_sec.value.length;
+  var alarmHr = alarmForm.alarm_hour.value;
+  alarmHr = hrLength === 2 ? alarmHr : alarmHr <= 9 ? "0" + alarmHr : alarmHr;
+  var alarmMin = alarmForm.alarm_min.value;
+  alarmMin = minLength === 2 ? alarmMin : alarmMin <= 9 ? "0" + alarmMin : alarmMin;
+  var alarmSec = alarmForm.alarm_sec.value;
+  alarmSec = secLength === 2 ? alarmSec : alarmSec <= 9 ? "0" + alarmSec : alarmSec;
+  var aMeridiem = alarmForm.meridiem.value;
+  if (aMeridiem === "Meridiem") {
     audioAlert.play();
     showNotification("select time Meridiem");
     return;
   }
-  const alarmTime = `${aHr} : ${aMin} : ${aSec} ${aZone}`;
+  const alarmTime = `${alarmHr} : ${alarmMin} : ${alarmSec} ${aMeridiem}`;
   console.log(alarmTime);  //it's for check gets the correct time and not.
- 
-  // set newAlarm to alarmList 
+  // set newAlarm to arrayAlarmList 
   if (isNaN(alarmTime)) {
-    if (!alarmList.includes(alarmTime)) {
-      alarmList.push(alarmTime);
+    if (!arrayAlarmList.includes(alarmTime)) {
+      arrayAlarmList.push(alarmTime);
       addAlarmToDom(alarmTime);
       alarmForm.reset();
       setTimeout(() => showNotification("created Successfully"), 500)
@@ -149,9 +137,8 @@ alarmForm.addEventListener("submit", (e) => {
   }
 });
 
-
-// stop Alarm audio 
-function stopAlarm() {
+// Click event listener on Stop Ringing
+stopAlarmBtn.addEventListener("click", () =>{
   if (audioPlay) {
     audioSound.pause();
     audioSound.currentTime = 0;
@@ -160,18 +147,15 @@ function stopAlarm() {
   } else {
     return;
   }
-}
-
-// Click event listener on Stop Alarm Button
-stopAlarmBtn.addEventListener("click", stopAlarm);
+});
 
 
 //  render AlarmList when user call delete Alarm Function
 function renderAlarmList() {
   headingAlarmList.classList.add("hide");
-  showAlarmList.innerHTML = "";
-  for (let i = 0; i < alarmList.length; i++) {
-    addAlarmToDom(alarmList[i]);
+  alarmList.innerHTML = "";
+  for (let i = 0; i < arrayAlarmList.length; i++) {
+    addAlarmToDom(arrayAlarmList[i]);
   }
   setTimeout(() => showNotification("Delete successfully"), 500)
   audioDelete.play();
@@ -179,17 +163,17 @@ function renderAlarmList() {
 
 //  delete Alarm in alarm list and document
 function deleteAlarm(value) {
-  let newAlarmList = alarmList.filter((time) => {
+  let newAlarmList = arrayAlarmList.filter((time) => {
     return time !== value;
   });
   console.log(newAlarmList);
-  alarmList = newAlarmList;
-  console.log(alarmList);
+  arrayAlarmList = newAlarmList;
+  console.log(arrayAlarmList);
   renderAlarmList();
 }
 
-// Handle Alarm list on delete Button
-function handleAlarmList(e) {
+// Click Event Listener on delete Button
+alarmList.addEventListener("click", (e) =>{
   const target = e.target;
   console.log(target);
   if (target.classList.contains("dlt")) {
@@ -199,10 +183,7 @@ function handleAlarmList(e) {
     deleteAlarm(value);
     return;
   }
-}
-
-// Click Event Listener on dlt button
-showAlarmList.addEventListener("click", handleAlarmList);
+});
 
 // SetInterval on UpdateTime Function
 setInterval(updateTime, 1000);

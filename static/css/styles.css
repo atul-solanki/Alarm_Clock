@@ -7,6 +7,11 @@
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
+/* Styles for hiding */
+.hide {
+  display: none;
+}
+
 
 /* set Styles for app */
 #app {
@@ -33,20 +38,20 @@ section::-webkit-scrollbar {
 }
 
 /* Styles for clock containter part */
-#clock-container {
+section #clock-container {
   padding: 1rem;
   height: 50%;
 }
 
 /* Styles for Clock container heading */
-#clock-container h1 {
+section #clock-container h1 {
   color: transparent;
   text-shadow: 0px 0px 7px rgb(218 214 207), 0 0 rgb(0 0 0 / 20%);
   font-weight: 900;
 }
 
 /* Styles for current time box */
-#current-time {
+section #clock-container #current-time {
   background-image: url("../images/clock-inner-bg-img.avif");
   background-size: cover;
   background-position: center;
@@ -66,7 +71,7 @@ section::-webkit-scrollbar {
 }
 
 /* Styles for clock time box */
-#time {
+section #clock-container #current-time #time {
   background: white;
   padding: 0 0.25rem;
   border-radius: 4px;
@@ -74,27 +79,19 @@ section::-webkit-scrollbar {
 }
 
 /* Styles for Input */
-#set-alarm-field input {
+#clock-container form #set-alarm-field input {
   width: 50px;
   padding-left: 0.4rem;
   margin: 1rem 0;
 }
 
-/* Styles for A(alarm) list Container Box*/
-#alist-conatiner {
-  overflow-y: scroll;
-  height: 41%;
-  scrollbar-width: none;
-}
-
-/* Styes for A(alarm) List Container Box scrollbar */
-#alist-conatiner::-webkit-scrollbar {
-  appearance: none;
-  width: 0;
+/* Styles for input field */
+form #set-alarm-field input:valid {
+  background-color: palegreen;
 }
 
 /* Styles for heading ofA(alarm) list */
-h3 {
+section h3 {
   padding-left: 2rem;
   font-weight: 600 !important;
   margin: 0 auto;
@@ -104,12 +101,28 @@ h3 {
   text-shadow: 1px -2px 3px #212529, 0 0 #000;
 }
 
+/* Styles for A(alarm) list Container Box*/
+section #alist-conatiner {
+  overflow-y: scroll;
+  height: 41%;
+  scrollbar-width: none;
+}
+
+/* Styes for A(alarm) List Container Box scrollbar */
+section #alist-conatiner::-webkit-scrollbar {
+  appearance: none;
+  width: 0;
+}
+
 ul {
   padding: 0;
 }
 
 /* Styles for Alarm list  */
 li {
+  position: relative;
+  color: var(--bs-list-group-color);
+  text-decoration: none;
   background-color: #dddcd7 !important;
   border: 2px solid rgb(0 0 0 / 13%) !important;
   max-width: 70%;
@@ -118,18 +131,19 @@ li {
 }
 
 li span {
+  font-weight: bold;
   -webkit-text-fill-color: transparent;
   letter-spacing: 2px;
   text-shadow: 1px -2px 3px #ada7a1, 0 0 rgb(0 0 0 / 80%);
 }
 
 /*  li Alarm icon */
-.bi.bi-alarm {
+li span .bi.bi-alarm {
   margin-right: 0.5rem;
 }
 
-
-.dlt::before {
+/* delete button icon */
+li .dlt::before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f1f8";
@@ -140,20 +154,9 @@ li span {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Styles for input field */
-input:valid,
-textarea:valid {
-  background-color: palegreen;
-}
-
 /* Styles for footer */
 footer {
   position: absolute;
   bottom: 0;
   height: 4%;
-}
-
-/* Styles for hiding */
-.hide {
-  display: none;
 }

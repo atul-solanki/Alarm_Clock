@@ -2,17 +2,17 @@
 @media screen and (max-width: 1080px) {
 
   /* Clock Heading styles*/
-  #clock-container h1 {
+  Section #clock-container h1 {
     font-size: 8vw;
   }
 
   /* clock button styles */
-  #clock-container button {
+  section #clock-container button {
     font-size: 3vw !important;
   }
 
   /* clock styles */
-  #current-time {
+  section #clock-container #current-time {
     font-size: 5vw !important;
     width: 50vw;
     height: 50vw;
@@ -21,26 +21,26 @@
   }
 
   /* Input styles */
-  #set-alarm-field input {
+  #clock-container form #set-alarm-field input {
     width: 12vw;
     font-size: 5vw;
     margin: 0.5rem 0;
   }
 
   /* timeZone */
-  #zone {
+  #clock-container form #set-alarm-field #meridiem {
     padding: 1vw 0.3vw 1vw;
     font-size: 5vw;
   }
 
-  /* list container styles */
-  #alist-conatiner {
-    font-size: 4vw;
+    /* Alarm List Heading */
+  section h3 {
+    font-size: 5vw;
   }
 
-  /* Alarm List Heading */
-  h3 {
-    font-size: 5vw;
+  /* list container styles */
+ section #alist-conatiner {
+    font-size: 4vw;
   }
 
   /* list */
