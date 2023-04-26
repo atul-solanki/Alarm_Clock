@@ -1,42 +1,3 @@
-//  Begin of HTML Structure Elements and tag part using javascript 
-
-document.getElementById("body").innerHTML = `
-<div id="app">
-  <section>
-    <div id="clock-container" class="container-fluid text-center">
-      <h1>DIGITAL CLOCK</h1>
-      <div id="current-time" class="container fs-2 fw-semibold"></div>
-      <form id="setAlarm-conatiner">
-        <div id="set-alarm-field">
-          <input type="number" name="alarm_hour" id="alarm_hour" placeholder="hr" maxlength="2" max="12" min="01" required>
-          <input type="number" name="alarm_min" id="alarm_min" placeholder="min" maxlength="2" max="59" min="00" required>
-          <input type="number" name="alarm_sec" id="alarm_sec" placeholder="sec" maxlength="2" max="59" min="00" required>
-          <select id="meridiem"  class="" required>
-            <option value="Meridiem" selected disabled hidden>Meridiem</option>
-            <option value="AM">AM</option>
-            <option value="PM">PM</option>
-          </select>
-        </div>
-        <div class="controls">
-          <button type="submit" class="set-alarm btn btn-primary"> Set Alarm</button>
-          <button type="reset" id="stop-alarm" class="clear-alarm btn btn-primary">Stop Ringing</button>
-        </div>
-      </form>
-    </div>
-    <h3 class="container hide">Alarms</h3>
-    <div id="alist-conatiner" class="container ">
-      <ul id="alarm-list">
-      </ul>
-    </div> 
-    <footer class="container-fluid text-bg-secondary text-center"> &copy; Copyright 2023 Created by ATUL SOLANKI
-    </footer>
-  </section>
-</div>
-`;
-
-// ---------------------------------------End of HTML Structure Elements and tag----------------------------------------------------------------
-
-
 // Alarm list and set audio variables for alarm
 let arrayAlarmList = []; // Stores all the alarams in array, when we created the Alarm.
 let audioSound = new Audio('static/audio/audio.mp3');
@@ -46,7 +7,7 @@ let audioAlert = new Audio('static/audio/alert.mp3')
 let audioPlay = false;
 
 // set some variable to modify the DOM
-const currentTime = document.getElementById("current-time");  // current time
+const currentTime = document.getElementById("time");  // current time
 const alarmList = document.getElementById("alarm-list");
 const alarmForm = document.querySelector("form");
 const stopAlarmBtn = document.getElementById("stop-alarm");
@@ -73,7 +34,7 @@ let updateTime = () => {
   var Meridiem = time.getHours() >= 12 ? "PM" : "AM";
   hours = hours < 10 ? "0" + hours : "" + hours;
   const tym = `${hours} : ${minutes} : ${seconds} ${Meridiem}`;
-  currentTime.innerHTML = ` Current Time<br><span id="time">${tym}</span>`;
+  currentTime.innerText = `${tym}`;
   if (arrayAlarmList.includes(tym)) {
     console.log(tym);
     alarmRinging();

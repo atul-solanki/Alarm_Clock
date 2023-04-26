@@ -51,7 +51,7 @@ section #clock-container h1 {
 }
 
 /* Styles for current time box */
-section #clock-container #current-time {
+section #clock-container #current-time-container {
   background-image: url("../images/clock-inner-bg-img.avif");
   background-size: cover;
   background-position: center;
@@ -71,7 +71,7 @@ section #clock-container #current-time {
 }
 
 /* Styles for clock time box */
-section #clock-container #current-time #time {
+section #clock-container #current-time-container #time {
   background: white;
   padding: 0 0.25rem;
   border-radius: 4px;

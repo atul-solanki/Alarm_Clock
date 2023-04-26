@@ -12,7 +12,7 @@
   }
 
   /* clock styles */
-  section #clock-container #current-time {
+  section #clock-container #current-time-container {
     font-size: 5vw !important;
     width: 50vw;
     height: 50vw;

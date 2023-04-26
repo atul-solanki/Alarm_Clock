@@ -26,7 +26,40 @@
 </head>
 
 <body id="body">
-  <div id="app"></div>
+  <div id="app">
+    <section>
+      <div id="clock-container" class="container-fluid text-center">  <!-- clock container -->
+        <h1>DIGITAL CLOCK</h1>  <!-- Heading Clock conntainer -->
+        <div id="current-time-container" class="container fs-2 fw-semibold">  <!-- Current time container box -->
+          Current Time<br>
+          <span id="time"></span> <!-- Current time -->
+        </div>
+        <form id="setAlarm-conatiner"> <!-- Set Alarm form -->
+          <div id="set-alarm-field">  <!-- Set Alarm input field -->
+            <input type="number" name="alarm_hour" id="alarm_hour" placeholder="hr" maxlength="2" max="12" min="01" required>
+            <input type="number" name="alarm_min" id="alarm_min" placeholder="min" maxlength="2" max="59" min="00" required>
+            <input type="number" name="alarm_sec" id="alarm_sec" placeholder="sec" maxlength="2" max="59" min="00" required>
+            <select id="meridiem"  class="" required>
+              <option value="Meridiem" selected disabled hidden>Meridiem</option>
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+          </div>
+          <div class="controls"> <!-- Alarm Controls button -->
+            <button type="submit" class="set-alarm btn btn-primary"> Set Alarm</button>  <!-- Set Alarm button -->
+            <button type="reset" id="stop-alarm" class="clear-alarm btn btn-primary">Stop Ringing</button>  <!-- Stop Ringing button -->
+          </div>
+        </form>
+      </div>
+      <h3 class="container hide">Alarms</h3> <!-- Heading Alarm list -->
+      <div id="alist-conatiner" class="container "> <!-- Alarm list container -->
+        <ul id="alarm-list"> <!-- Alarm list -->
+        </ul>
+      </div> 
+      <footer class="container-fluid text-bg-secondary text-center"> &copy; Copyright 2023 Created by ATUL SOLANKI
+      </footer>
+    </section>
+  </div>
 
   <!-- Javascript -->
   <script src="static/js/index.js"></script>
